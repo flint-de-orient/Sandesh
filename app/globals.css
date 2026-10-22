@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+/* Flint De Orient brand: warm near-black, warm off-white, one gold accent.
+   Values follow flintdeorient.in. The product is dark-only, like the company site. */
+:root {
+  --bg: #0a0a0a;
+  --surface: #161412;
+  --surface-2: #211e1b;
+  --border: #352e27;
+  --border-strong: #4a4037;
+  --fg: #f7f5f1;
+  --muted: #aca69c;
+  --subtle: #8c867c;
+
+  --accent: #d7a042;
+  --accent-hover: #e2b259;
+  --accent-soft: rgb(215 160 66 / 0.14);
+  --accent-text: #f0cb75;
+  --on-accent: #0f0f0f;
+  --gold-light: #f0cb75;
+  --gold-deep: #9b6527;
+
+  --success: #4ade80;
+  --success-soft: rgb(74 222 128 / 0.1);
+  --warning: #fb923c;
+  --warning-soft: rgb(251 146 60 / 0.12);
+  --danger: #f87171;
+  --danger-soft: rgb(248 113 113 / 0.1);
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-text: var(--accent-text);
+  --color-on-accent: var(--on-accent);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  --shadow-soft: 0 8px 30px -8px rgb(0 0 0 / 0.6);
+  --shadow-glow: 0 0 30px -8px rgb(215 160 66 / 0.55);
+}
+
+body {
+  /* The site's soft gold glows, kept faint so content stays the focus. */
+  background:
+    radial-gradient(60rem 30rem at 15% -10%, rgb(215 160 66 / 0.10), transparent 70%),
+    radial-gradient(40rem 30rem at 100% 100%, rgb(155 101 39 / 0.10), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11", "ss01";
+}
+
+/* In the base layer so per-component utilities can override it. */
+/* The brand's one gradient, reserved for primary actions and the success bar. */
+@utility bg-gold {
+  background-image: linear-gradient(135deg, var(--gold-light), var(--accent) 50%, var(--gold-deep));
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
+
+/* Message body: shared by the editor and the preview so they look identical. */
+.rich-text h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0.75em 0 0.25em;
+}
+.rich-text h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0.75em 0 0.25em;
+}
+.rich-text p {
+  margin: 0 0 0.5em;
+}
+.rich-text ul {
+  list-style: disc;
+  padding-left: 1.5em;
+  margin: 0.25em 0;
+}
+.rich-text ol {
+  list-style: decimal;
+  padding-left: 1.5em;
+  margin: 0.25em 0;
+}
+.rich-text b,
+.rich-text strong {
+  font-weight: 600;
+}
+.rich-text > :first-child {
+  margin-top: 0;
+}
+.rich-text .rt-name {
+  background: var(--accent-soft);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+.rich-text[data-empty="true"]::before {
+  content: attr(data-placeholder);
+  color: var(--subtle);
+  white-space: pre-line;
+  pointer-events: none;
+  display: block;
+  height: 0;
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+}
